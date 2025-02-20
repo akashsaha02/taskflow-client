@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const axiosPublic = useAxiosPublic;
+    const axiosPublic = useAxiosPublic();
 
 
 
