@@ -9,7 +9,6 @@ const Login = () => {
   const { googleSignIn } = useAuth();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
-
   const handleGoogleSignIn = () => {
 
     try {
@@ -21,9 +20,8 @@ const Login = () => {
         }
         axiosPublic.post('/users', userInfo).then((res) => {
           if (res.data.insertedId) {
-            toast.success('Logged In Successfully').then(() => {
-              navigate('/');
-            });
+            toast.success('Logged In Successfully')
+            navigate('/');
           }
         })
       })
@@ -41,7 +39,7 @@ const Login = () => {
         type="button"
         className="p-4 border border-me-brown rounded-lg flex justify-center items-center gap-4 w-full"
       >
-        <FcGoogle/>
+        <FcGoogle />
         <p className="font-medium capitalize"> Sign in with google</p>
       </button>
     </div>
