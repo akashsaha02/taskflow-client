@@ -20,7 +20,7 @@ const Login = () => {
 
         }
         console.log(userInfo)
-        axiosPublic.post('/users', userInfo).then((res) => {
+        axiosPublic.post('/users/set-user', userInfo).then((res) => {
           if (res.data.insertedId) {
             toast.success('Logged In Successfully')
             navigate('/');
