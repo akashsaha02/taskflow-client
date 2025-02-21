@@ -43,22 +43,29 @@ const TaskBoard = () => {
     const handleDragEnd = async (event) => {
         const { active, over } = event;
         if (!over) return;
-
+    
         const activeTask = tasks.find((task) => task._id === active.id);
         if (!activeTask) return;
-
-        const fromIndex = tasks.findIndex((t) => t._id === active.id);
-        const toIndex = tasks.findIndex((t) => t._id === over.id);
-
-        const updatedTasks = arrayMove(tasks, fromIndex, toIndex);
-        setTasks(updatedTasks);
-
+    
+        const updatedCategory = over.id; // Use the `id` from `useDroppable`
+        if (activeTask.category === updatedCategory) return; // No need to update if same category
+    
+        const updatedTask = { ...activeTask, category: updatedCategory };
+    
+        // Update UI Optimistically
+        setTasks((prevTasks) =>
+            prevTasks.map((task) => (task._id === activeTask._id ? updatedTask : task))
+        );
+    
         try {
-            await axiosSecure.put(`/tasks/${active.id}`, { category: activeTask.category });
+            await axiosSecure.put(`/tasks/${activeTask._id}`, { category: updatedCategory });
+            socket.emit('taskUpdated', { action: 'update', task: updatedTask });
         } catch (error) {
-            console.error('Error updating task:', error);
+            console.error('Error updating task category:', error);
         }
     };
+    
+
 
     const handleAddTask = async () => {
         try {

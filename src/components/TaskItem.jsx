@@ -1,15 +1,18 @@
 import { useDraggable } from "@dnd-kit/core";
 import { axiosSecure } from "../hooks/useAxiosSecure";
-// import { deleteTask } from "../api";
 
 const TaskItem = ({ task, user, setTasks }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: task._id,
+    id: task._id, // Ensure this matches task ID in TaskBoard.js
   });
 
   const handleDelete = async () => {
-    await axiosSecure.delete(`/tasks/${task._id}`);
-    // setTasks((prev) => prev.filter((t) => t._id !== task._id));
+    try {
+        await axiosSecure.delete(`/tasks/${task._id}`);
+        setTasks((prev) => prev.filter((t) => t._id !== task._id));
+    } catch (error) {
+        console.error('Error deleting task:', error);
+    }
   };
 
   const style = {
