@@ -22,7 +22,7 @@ const TaskBoard = () => {
         if (user) {
             const fetchTasksData = async () => {
                 try {
-                    const res = await axiosSecure.get('/tasks');
+                    const res = await axiosSecure.get(`/tasks/${user?.email}`);
                     setTasks(res.data);
                 } catch (error) {
                     console.error('Error fetching tasks:', error);
@@ -62,10 +62,11 @@ const TaskBoard = () => {
 
     const handleAddTask = async () => {
         try {
-            const res = await axiosSecure.post('/tasks', newTask);
+            const taskToAdd = { ...newTask, userId: user?.email }; // Ensure userId is always set
+            const res = await axiosSecure.post('/tasks', taskToAdd);
             setTasks([...tasks, res.data]);
             closeModal();
-            setNewTask({ title: '', description: '', category: 'To-Do' });
+            setNewTask({ title: '', description: '', category: 'To-Do', userId: user?.email }); // Keep userId
         } catch (error) {
             console.error('Error adding task:', error);
         }

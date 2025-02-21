@@ -1,4 +1,5 @@
 import { useDraggable } from "@dnd-kit/core";
+import { axiosSecure } from "../hooks/useAxiosSecure";
 // import { deleteTask } from "../api";
 
 const TaskItem = ({ task, user, setTasks }) => {
@@ -7,7 +8,7 @@ const TaskItem = ({ task, user, setTasks }) => {
   });
 
   const handleDelete = async () => {
-    // await deleteTask(task._id, user.accessToken);
+    await axiosSecure.delete(`/tasks/${task._id}`);
     // setTasks((prev) => prev.filter((t) => t._id !== task._id));
   };
 
@@ -21,10 +22,10 @@ const TaskItem = ({ task, user, setTasks }) => {
       style={style}
       {...listeners}
       {...attributes}
-      className="bg-white p-2 mb-2 rounded shadow"
+      className="bg-black p-2 mb-2 rounded shadow"
     >
       <p>{task.title}</p>
-      <button onClick={handleDelete} className="text-red-500 text-xs">
+      <button onClick={handleDelete} className="text-red-500 text-xs px-2 py-1 border border-red-500 rounded">
         Delete
       </button>
     </div>
