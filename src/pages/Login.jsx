@@ -15,9 +15,11 @@ const Login = () => {
       googleSignIn().then((res) => {
         const userInfo = {
           email: res.user?.email,
-          name: res.user?.displayName
+          name: res.user?.displayName,
+          photo: res.user?.photoURL
 
         }
+        console.log(userInfo)
         axiosPublic.post('/users', userInfo).then((res) => {
           if (res.data.insertedId) {
             toast.success('Logged In Successfully')

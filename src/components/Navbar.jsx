@@ -2,15 +2,22 @@ import { Link } from "react-router-dom"
 import useAuth from "../hooks/useAuth"
 
 const Navbar = () => {
-    const { user } = useAuth();
+    const { user, logoutUser } = useAuth();
     console.log(user)
+
+    const handleLogOut = async () => {
+        await logoutUser();
+    }
+
+
 
     const navItems = <>
         <li><a>Item 1</a></li>
         <li><a>Item 3</a></li>
-        <li className="">
-            <Link to="" className="btn btn-primary">Login</Link>
-        </li>
+        {
+            user && <li className="">
+            </li>
+        }
     </>
     return (
         <div className="bg-base-100 shadow-sm">
@@ -34,14 +41,13 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end gap-2">
-                    {user ? <>
+                    {user?.email ? (<>
+                        <Link className="btn btn-secondary"> {user?.email}</Link>
+                        <button onClick={() => handleLogOut()} className="btn btn-primary">Logout</button>
+
+                    </>) : (<>
                         <Link to='/login' type="" className="btn btn-primary">Login</Link>
-                        <Link className="btn btn-secondary">SignUp</Link>
-                    </> : <>
-                        <div className="">
-                            <p className=""> {user.email}</p>
-                        </div>
-                    </>}
+                    </>)}
                 </div>
             </div>
         </div>
