@@ -71,18 +71,18 @@ const TaskItem = ({ task, user, setTasks }) => {
       {/* Edit Modal rendered with Portal */}
       {isEditing &&
         createPortal(
-          <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+          <div className="fixed inset-0 flex justify-center items-center bg-black/60 backdrop-blur-sm bg-opacity-50 z-50">
             <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg w-11/12 sm:w-96">
               <h3 className="font-bold text-2xl mb-4 text-gray-800 dark:text-gray-100">Edit Task</h3>
               <input
                 type="text"
-                className="input input-bordered w-full mb-4 dark:bg-gray-600 dark:text-gray-100"
+                className="input input-bordered bg-gray-200 text-black w-full mb-4 dark:bg-gray-600 dark:text-gray-100"
                 value={editedTask.title}
                 onChange={(e) => setEditedTask({ ...editedTask, title: e.target.value })}
                 placeholder="Task Title"
               />
               <textarea
-                className="textarea textarea-bordered w-full mb-4 dark:bg-gray-600 dark:text-gray-100"
+                className="textarea textarea-bordered w-full mb-4 bg-gray-200 text-black dark:bg-gray-600 dark:text-gray-100"
                 value={editedTask.description}
                 onChange={(e) => setEditedTask({ ...editedTask, description: e.target.value })}
                 placeholder="Task Description"

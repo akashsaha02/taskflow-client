@@ -74,8 +74,7 @@ const TaskBoard = () => {
   const handleAddTask = async () => {
     try {
       const taskToAdd = { ...newTask, userId: user?.email };
-      const res = await axiosSecure.post('/tasks', taskToAdd);
-      setTasks([...tasks, res.data]);
+      await axiosSecure.post('/tasks', taskToAdd);
       closeModal();
       setNewTask({ title: '', description: '', category: 'To-Do', userId: user?.email });
     } catch (error) {
@@ -113,7 +112,7 @@ const TaskBoard = () => {
               <input
                 type="text"
                 placeholder="Title"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-gray-200 text-black dark:bg-gray-600 dark:text-gray-100"
                 value={newTask.title}
                 onChange={(e) =>
                   setNewTask({ ...newTask, title: e.target.value })
@@ -121,14 +120,14 @@ const TaskBoard = () => {
               />
               <textarea
                 placeholder="Description"
-                className="textarea textarea-bordered w-full"
+                className="textarea textarea-bordered w-full bg-gray-200 text-black dark:bg-gray-600 dark:text-gray-100"
                 value={newTask.description}
                 onChange={(e) =>
                   setNewTask({ ...newTask, description: e.target.value })
                 }
               />
               <select
-                className="select select-bordered w-full"
+                className="select select-bordered w-full bg-gray-200 text-black dark:bg-gray-600 dark:text-gray-100"
                 value={newTask.category}
                 onChange={(e) =>
                   setNewTask({ ...newTask, category: e.target.value })
@@ -161,7 +160,7 @@ const TaskBoard = () => {
           collisionDetection={closestCorners}
           onDragEnd={handleDragEnd}
         >
-          <div className="flex flex-col md:flex-row gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {categories.map((category) => (
               <SortableContext
                 key={category}
