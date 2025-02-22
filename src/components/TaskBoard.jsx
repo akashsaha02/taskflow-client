@@ -1,6 +1,6 @@
 // TaskBoard.js
 import React, { useEffect, useState, useRef } from 'react';
-import { DndContext, closestCorners } from '@dnd-kit/core';
+import { DndContext, closestCorners, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { io } from 'socket.io-client';
 import TaskColumn from './TaskColumn';
@@ -23,6 +23,16 @@ const TaskBoard = () => {
     const categories = ['To-Do', 'In Progress', 'Done'];
     const modalRef = useRef(null);
     const axiosSecure = useAxiosSecure();
+
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(TouchSensor, {
+            activationConstraint: {
+                delay: 250, // Hold for 250ms before dragging
+                tolerance: 5, // Small movement allowed before activating
+            },
+        })
+    );
 
     useEffect(() => {
         if (user) {
@@ -163,6 +173,7 @@ const TaskBoard = () => {
 
                 {/* Drag and Drop Context */}
                 <DndContext
+                    sensors={sensors}
                     collisionDetection={closestCorners}
                     onDragEnd={handleDragEnd}
                 >

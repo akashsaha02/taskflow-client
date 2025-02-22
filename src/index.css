@@ -5,6 +5,11 @@
 @plugin "daisyui";
 
 
-.body {
+body {
   font-family: 'Inter', sans-serif;
+}
+
+html, body {
+  touch-action: none; /* Prevent scrolling during drag */
+  user-select: none;  /* Prevent accidental text selection */
 }
