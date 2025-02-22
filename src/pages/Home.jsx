@@ -4,9 +4,7 @@ import useAuth from "../hooks/useAuth"
 const Home = () => {
   const { user } = useAuth()
   return (
-    <div className=" container mx-auto px-4">
-      <span>Hi</span>
-
+    <div className="">
       {user && <TaskBoard />}
     </div>
   )
