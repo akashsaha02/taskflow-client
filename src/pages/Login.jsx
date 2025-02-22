@@ -31,7 +31,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300 p-4">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-md text-center border border-gray-300 dark:border-gray-700 transition-all duration-300">
         <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">Welcome Back</h2>
         <p className="text-gray-600 dark:text-gray-300 mb-6">Sign in to continue</p>

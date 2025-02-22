@@ -1,13 +1,11 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { FiSun, FiMoon } from "react-icons/fi";
-import logo from "/public/check.png";
+import logo from "/check.png";
 
 const Navbar = () => {
     const { user, logoutUser } = useAuth();
-    const navigate = useNavigate();
-    const location = useLocation();
     const [isDark, setIsDark] = useState(() => {
         return localStorage.getItem("theme") === "dark";
     });
@@ -18,6 +16,7 @@ const Navbar = () => {
             document.documentElement.classList.add("dark");
         } else {
             document.documentElement.classList.remove("dark");
+            document.documentElement.classList.add("light");
         }
     }, [isDark]);
 
@@ -29,8 +28,6 @@ const Navbar = () => {
         const newTheme = isDark ? "light" : "dark";
         localStorage.setItem("theme", newTheme);
         setIsDark(!isDark);
-
-        // Dispatch event to notify other components of theme change
         window.dispatchEvent(new Event("storage"));
     };
 
@@ -58,7 +55,7 @@ const Navbar = () => {
                     {user?.email ? (
                         <div className="flex items-center gap-3">
                             <p className="text-black dark:text-white text-sm md:text-md font-medium whitespace-nowrap">
-                                Welcome, {user?.displayName?.split(" ")[0]}
+                                {user?.displayName?.split(" ")[0]}
                             </p>
                             <button onClick={handleLogOut} className="btn btn-sm md:btn-md btn-primary">
                                 Logout
