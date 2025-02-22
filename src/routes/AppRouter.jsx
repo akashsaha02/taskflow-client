@@ -5,6 +5,7 @@ import Main from "../layout/Main";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -14,18 +15,18 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home/>,
+                element: <PrivateRoute>
+                    <Home />,
+                </PrivateRoute>
             },
-            {
-                path: "/sign-up",
-                element:<Register/>
-            },
-            {
-                path:'/login',
-                element:<Login/>
-            }
+
         ]
     },
+    {
+        path: '/login',
+        element: <Login />,
+        errorElement: <div>404 Not Found</div>,
+    }
 ]);
 
 export default router;

@@ -21,15 +21,6 @@ const Navbar = () => {
         }
     }, [isDark]);
 
-    // Redirect users based on authentication state
-    useEffect(() => {
-        if (!user && location.pathname !== "/login") {
-            navigate("/login");
-        } else if (user && location.pathname === "/login") {
-            navigate("/");
-        }
-    }, [user, location, navigate]);
-
     const handleLogOut = async () => {
         await logoutUser();
     };

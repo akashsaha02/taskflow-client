@@ -28,8 +28,8 @@ const TaskBoard = () => {
         useSensor(PointerSensor),
         useSensor(TouchSensor, {
             activationConstraint: {
-                delay: 250, // Hold for 250ms before dragging
-                tolerance: 5, // Small movement allowed before activating
+                delay: 200, // Reduce delay for better responsiveness
+                tolerance: 5,  // Reduce movement threshold before drag starts
             },
         })
     );
@@ -177,7 +177,7 @@ const TaskBoard = () => {
                     collisionDetection={closestCorners}
                     onDragEnd={handleDragEnd}
                 >
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="overflow-auto touch-pan-y grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {categories.map((category) => (
                             <SortableContext
                                 key={category}
