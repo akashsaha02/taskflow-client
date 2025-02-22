@@ -40,7 +40,7 @@ const TaskColumn = ({ category, tasks, user, setTasks }) => {
       style={dynamicStyle}
       className="p-4 rounded-xl shadow-md w-full mb-4 transition-all duration-200"
     >
-      <h2 className="text-xl font-semibold mb-4">{category}</h2>
+      <h2 className="text-xl lg:text-2xl font-bold mb-4 text-center">{category}</h2>
       {tasks.map((task) => (
         <TaskItem key={task._id} task={task} user={user} setTasks={setTasks} />
       ))}
