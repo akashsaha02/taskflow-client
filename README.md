@@ -6,6 +6,8 @@ TaskFlow is a task management application that allows users to create, update, a
 
 - [Live Demo](https://akashsaha-02.web.app)
 
+![alt text](./src/assets/github-banner.png)
+
 ## Dependencies
 
 ### Client

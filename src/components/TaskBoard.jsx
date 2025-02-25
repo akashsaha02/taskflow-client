@@ -25,12 +25,9 @@ const TaskBoard = () => {
     const axiosSecure = useAxiosSecure();
 
     const sensors = useSensors(
-        useSensor(PointerSensor),
+        useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
         useSensor(TouchSensor, {
-            activationConstraint: {
-                delay: 200, // Reduce delay for better responsiveness
-                tolerance: 5,  // Reduce movement threshold before drag starts
-            },
+            activationConstraint: { delay: 300, tolerance: 5 },
         })
     );
 
@@ -172,28 +169,27 @@ const TaskBoard = () => {
                 </dialog>
 
                 {/* Drag and Drop Context */}
-                <DndContext
-                    sensors={sensors}
-                    collisionDetection={closestCorners}
-                    onDragEnd={handleDragEnd}
-                >
-                    <div className="overflow-auto touch-pan-y grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {categories.map((category) => (
-                            <SortableContext
-                                key={category}
-                                items={tasks
-                                    .filter((task) => task.category === category)
-                                    .map((task) => task._id)}
-                                strategy={verticalListSortingStrategy}
-                            >
-                                <TaskColumn
-                                    category={category}
-                                    tasks={tasks.filter((task) => task.category === category)}
-                                    user={user}
-                                    setTasks={setTasks}
-                                />
-                            </SortableContext>
-                        ))}
+                <DndContext sensors={sensors} collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
+                    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-4">
+                        <div className="container mx-auto">
+                            {/* Render columns using a grid layout */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                {categories.map((category) => (
+                                    <SortableContext
+                                        key={category}
+                                        items={tasks.filter((task) => task.category === category).map((task) => task._id)}
+                                        strategy={verticalListSortingStrategy}
+                                    >
+                                        <TaskColumn
+                                            category={category}
+                                            tasks={tasks.filter((task) => task.category === category)}
+                                            user={user}
+                                            setTasks={setTasks}
+                                        />
+                                    </SortableContext>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </DndContext>
             </div>
